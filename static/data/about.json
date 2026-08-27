@@ -1,0 +1,12 @@
+{
+  "name": "Minus Store",
+  "owner": "Minus",
+  "tagline": "A home for projects worth shipping.",
+  "description": "A personal project marketplace and showcase for software, AI, robotics and web experiments built by Minus.",
+  "version": "1.0.0",
+  "stats": {
+    "projects": 39,
+    "categories": 76,
+    "technologies": 56
+  }
+}

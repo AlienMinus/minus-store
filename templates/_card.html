@@ -1,0 +1,60 @@
+<article class="project-card">
+    <a href="{{ url_for('project_detail', slug=project.slug or project.id) }}" class="card-link">
+
+        <div class="card-image">
+            {% set card_img = project.demo_image %}
+            {% if card_img %}
+                <img
+                    src="{{ card_img }}"
+                    alt="{{ project.title or project.name }}"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div class="image-fallback">
+                    <span>{{ (project.title or project.name or 'P')[:1] }}</span>
+                </div>
+            {% else %}
+                <div class="image-fallback visible">
+                    <span>{{ (project.title or project.name or 'P')[:1] }}</span>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="card-body">
+
+            <div class="card-top">
+                {% set techs = project.techStack or project.technologies %}
+                <div class="project-type">
+                    {% if techs %}
+                        {{ techs[0] }}
+                    {% else %}
+                        Project
+                    {% endif %}
+                </div>
+
+                {% if project.status %}
+                    <span class="status">{{ project.status }}</span>
+                {% endif %}
+            </div>
+
+            <h3>{{ project.title or project.name }}</h3>
+
+            <p>{{ project.tagline or project.description }}</p>
+
+            {% if techs %}
+                <div class="tech-stack">
+                    {% for tech in techs[:4] %}
+                        <span>{{ tech }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="card-footer">
+                <span class="view-project">
+                    View project →
+                </span>
+            </div>
+
+        </div>
+    </a>
+</article>

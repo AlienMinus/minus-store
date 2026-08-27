@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08090d">
+  <meta name="description" content="{{ store_about.description }}">
+  <title>{% block title %}{{ store_about.name }}{% endblock %}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='icons/favicon.png') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/favicon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">
+      <span class="brand-mark">−</span>
+      <span>{{ store_about.name }}</span>
+    </a>
+    <nav>
+      <a href="{{ url_for('index') }}">Explore</a>
+      <a href="#about">About</a>
+      <a class="github-link" href="{{ store_links.github }}" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </nav>
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer id="about" class="footer">
+    <div><strong>{{ store_about.name }}</strong><span>{{ store_about.tagline }}</span></div>
+    <div class="footer-links">
+      <a href="{{ store_links.github }}" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="{{ store_links.portfolio }}" target="_blank" rel="noreferrer">Portfolio</a>
+      <a href="{{ store_links.email }}">Contact</a>
+      <a href="{{ store_links.linkedin }}" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="{{ store_links.instagram }}" target="_blank" rel="noreferrer">Instagram</a>
+    </div>
+    <small>Built with Flask · Jinja · Waitress</small>
+  </footer>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

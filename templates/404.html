@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block title %}Not Found — {{ store_about.name }}{% endblock %}{% block content %}<section class="not-found"><span class="eyebrow">404</span><h1>Project not found.</h1><p>That project doesn't exist in the store.</p><a class="button primary" href="{{ url_for('index') }}">Back to store</a></section>{% endblock %}

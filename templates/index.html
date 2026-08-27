@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}{{ store_about.name }} — Projects{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="pulse"></span> PERSONAL PROJECT STORE</div>
+    <h1>Projects, shipped<br><em>with intent.</em></h1>
+    <p>{{ store_about.description }}</p>
+    <div class="stats">
+      <div><b>{{ store_about.stats.projects }}</b><span>Projects</span></div>
+      <div><b>{{ store_about.stats.categories }}</b><span>Categories</span></div>
+      <div><b>{{ store_about.stats.technologies }}+</b><span>Technologies</span></div>
+    </div>
+  </div>
+  <div class="hero-orbit" aria-hidden="true"><div class="orbit-ring r1"></div><div class="orbit-ring r2"></div><div class="orbit-core">−</div></div>
+</section>
+
+<section class="toolbar">
+  <form class="search" method="get" action="{{ url_for('index') }}">
+    <span>⌕</span><input id="searchInput" name="q" value="{{ query }}" placeholder="Search projects, technologies, tags…" autocomplete="off"><kbd>/</kbd>
+    {% if active_category != 'all' %}<input type="hidden" name="category" value="{{ active_category }}">{% endif %}
+  </form>
+  <div class="filters">
+    <a class="filter {% if active_category == 'all' %}active{% endif %}" href="{{ url_for('index', q=query) }}">All</a>
+    {% for category in categories %}<a class="filter {% if active_category == category|lower %}active{% endif %}" href="{{ url_for('index', q=query, category=category|lower) }}">{{ category }}</a>{% endfor %}
+  </div>
+</section>
+
+{% if featured %}
+<section class="section"><div class="section-heading"><div><span class="eyebrow">FEATURED</span><h2>Start here</h2></div><span class="count">{{ featured|length }} projects</span></div>
+<div class="project-grid featured-grid">
+{% for project in featured %}{% include '_card.html' %}{% endfor %}
+</div></section>
+{% endif %}
+
+<section class="section"><div class="section-heading"><div><span class="eyebrow">CATALOG</span><h2>All projects</h2></div><span class="count">{{ projects|length }} results</span></div>
+{% if regular %}<div class="project-grid">{% for project in regular %}{% include '_card.html' %}{% endfor %}</div>{% elif not featured %}<div class="empty">No projects match your search.</div>{% endif %}
+</section>
+{% endblock %}

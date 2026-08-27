@@ -1,0 +1,153 @@
+[
+  {
+    "id": "hyperion-ide",
+    "title": "Hyperion IDE",
+    "description": "Integrated Development Environment for Code Security Analysis & Mode",
+    "techStack": ["MERN", "Render Microservices", "Cloudinary", "Python-NLP"],
+    "tags": ["CyberSecurity", "Agentic AI", "IDE", "DeepLearning NLP"],
+    "links": {
+      "github": "https://github.com/AlienMinus/Minus_IDE",
+      "demo": "https://hyperion-ide.vercel.app/"
+    },
+    "slug": "hyperion-ide",
+    "featured": true,
+    "icon_image": "/static/icons/hyperion.png",
+    "demo_image": "https://repository-images.githubusercontent.com/1316102880/833330ee-15f4-46a3-b095-5a65158d433b"
+  },
+  {
+    "id": "geolocation-tracker",
+    "title": "GeoLocator",
+    "description": "Track Users RealTime. Accuracy: 20KM Range",
+    "techStack": [
+      "MERN",
+      "Render Microservice",
+      "Cloudinary",
+      "GeoLocation API"
+    ],
+    "tags": ["API", "JavaScript", "CyberSecurity", "Location"],
+    "links": {
+      "github": "https://github.com/AlienMinus/GeoLocation-Tracker",
+      "demo": "https://geo-location-tracker-eight.vercel.app/"
+    },
+    "slug": "geolocation-tracker",
+    "icon_image": "/static/icons/geolocator.png",
+    "demo_image": "https://repository-images.githubusercontent.com/1328029599/a2f91858-f2aa-4227-aeeb-18b768a8c8f9"
+  },
+  {
+    "id": "m-i-r-a",
+    "title": "M.I.R.A",
+    "description": "Multipurpose Intelligence for Research & Automation",
+    "techStack": ["MERN", "Render Microservices", "Cloudinary", "Python-NLP"],
+    "tags": ["ChatBot", "Agentic AI", "LangChain", "DeepLearning NLP"],
+    "links": {
+      "github": "https://github.com/AlienMinus/M.I.R.A.",
+      "demo": "https://m-i-r-a.vercel.app"
+    },
+    "slug": "m-i-r-a",
+    "featured": true,
+    "icon_image": "/static/icons/mira.png",
+    "demo_image": "https://repository-images.githubusercontent.com/1134037583/153413b6-88f6-4919-bdee-8eff63d828ba"
+  },
+  {
+    "id": "arcturus-connexa",
+    "title": "Arcturus Connexa",
+    "description": "Professional Social Media App",
+    "techStack": ["MongoDB", "Express", "ReactJS", "Node.js"],
+    "tags": ["JavaScript", "Vercel", "MERN Stack", "Like LinkedIn"],
+    "links": {
+      "github": "https://github.com/AlienMinus/Arcturus-Connexa",
+      "demo": "https://arcturus-connexa.vercel.app/"
+    },
+    "slug": "arcturus-connexa",
+    "icon_image": "/static/icons/arcturus.png",
+    "demo_image": "https://repository-images.githubusercontent.com/1182491309/5e32a460-6517-49fc-95df-d461fe275033"
+  },
+  {
+    "id": "resumanager",
+    "title": "ResuManager",
+    "description": "ATS Friendly Resume Generator.",
+    "techStack": ["HTML", "Vanilla CSS", "JavaScript", "Local Storage"],
+    "tags": ["Plain HTML-CSS-JS", "ATS-Friendly Template"],
+    "links": {
+      "github": "https://github.com/AlienMinus/ATS-Friendly-Resume-Generator",
+      "demo": "https://resumanager.vercel.app/"
+    },
+    "slug": "resumanager",
+    "icon_image": "/static/icons/resumanager.png",
+    "demo_image": "https://repository-images.githubusercontent.com/1175928995/a3da77e7-0484-4597-ab84-788bf2adcda3"
+  },
+  {
+    "id": "emotion-detection-browser-extention",
+    "title": "Emotion-Detection-Browser-Extention",
+    "description": "Emotion detection browser extension using ML pipeline.",
+    "techStack": ["Python", "Machine Learning", "Browser Extension"],
+    "tags": ["Browser Extension", "Emotion Detection", "Machine Learning"],
+    "links": {
+      "github": "https://github.com/AlienMinus/Emotion-Detection-Browser-Extention",
+      "demo": "https://microsoftedge.microsoft.com/addons/detail/emotion-detector/kafgdcdicmdjlljpmkccchbpdjkccklb"
+    },
+    "slug": "emotion-detection-browser-extention",
+    "icon_image": "/static/icons/emotion.png",
+    "demo_image": "https://repository-images.githubusercontent.com/1068544059/8937f4b9-d583-4afa-9f34-184093aa27ea"
+  },
+
+  {
+    "id": "qr-code-generator",
+    "title": "QR Code Generator",
+    "description": "A simple QR code generator built with Frontend JS.",
+    "techStack": ["Front-End", "JavaScript", "HTML", "CSS"],
+    "tags": ["Front-End", "QR Code", "JavaScript"],
+    "links": {
+      "github": "https://github.com/AlienMinus/QR_Code",
+      "demo": "https://alienminus.github.io/QR_Code/"
+    },
+    "slug": "qr-code-generator",
+    "icon_image": "/static/icons/qrcode.png",
+    "demo_image": "https://repository-images.githubusercontent.com/922514912/32b710cc-532d-4eb5-af5a-e555083967d2"
+  },
+
+  {
+    "id": "minus-art-gallery",
+    "title": "Minus_Art_Gallery",
+    "description": "A canvas drawing tool and interactive gallery built with Frontend JS.",
+    "techStack": ["Front-End", "JavaScript", "HTML", "CSS"],
+    "tags": ["Front-End", "Art Gallery", "JavaScript"],
+    "links": {
+      "github": "https://github.com/AlienMinus/Minus_Art_Gallery",
+      "demo": "https://alienminus.github.io/Minus_Art_Gallery/"
+    },
+    "slug": "minus-art-gallery",
+    "icon_image": "/static/icons/artgallery.png",
+    "demo_image": "https://repository-images.githubusercontent.com/924526206/946a247d-090e-4c66-9e77-ff87218caa34"
+  },
+
+  {
+    "id": "weathy-weather-app",
+    "title": "Weathy - Weather App",
+    "description": "A weather application built with Frontend JS.",
+    "techStack": ["Front-End", "JavaScript", "HTML", "CSS", "Weather-API"],
+    "tags": ["Front-End", "Weather App", "JavaScript"],
+    "links": {
+      "github": "https://github.com/AlienMinus/Weather_App",
+      "demo": "https://alienminus.github.io/Weather_App/"
+    },
+    "slug": "weathy-weather-app",
+    "icon_image": "/static/icons/weathy.png",
+    "demo_image": "https://repository-images.githubusercontent.com/923156456/152cb48d-485a-49cd-8e5f-d73440bb80c6"
+  },
+
+  {
+    "id": "clock-walk",
+    "title": "Clock Walk",
+    "description": "A Clock app to show both analog & digital date & time.",
+    "techStack": ["Front-End", "JavaScript", "HTML", "CSS"],
+    "tags": ["Front-End", "Clock App", "JavaScript"],
+    "links": {
+      "github": "https://github.com/AlienMinus/Clock_Walk",
+      "demo": "https://alienminus.github.io/Clock_Walk/"
+    },
+    "slug": "clock-walk",
+    "icon_image": "/static/icons/clock.png",
+    "demo_image": "https://repository-images.githubusercontent.com/874593633/5d3f1ace-bee4-4343-8f31-07a914cea6d3"
+  }
+]

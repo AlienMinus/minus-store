@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block title %}{{ project.title or project.name }} — {{ store_about.name }}{% endblock %}
+{% block content %}
+<section class="project-hero accent-{{ project.accent or 'violet' }}">
+  <a class="back" href="{{ url_for('index') }}">← Back to store</a>
+  <div class="project-heading">
+    {% set icon_src = project.icon_image or (project.icon if project.icon and (project.icon.startswith('http') or '/' in project.icon)) %}
+    {% if icon_src %}
+      <div class="project-image-preview">
+        <img src="{{ icon_src }}" alt="{{ project.title or project.name }}" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+        <div class="project-icon large" style="display: none;">
+          <span>{{ (project.title or project.name or 'P')[:1] }}</span>
+        </div>
+      </div>
+    {% elif project.icon and project.icon in ['bot', 'calendar', 'cpu', 'spark', 'store', 'terminal'] %}
+      <div class="project-icon large">
+        {% include 'icons/' + project.icon + '.svg' %}
+      </div>
+    {% else %}
+      <div class="project-icon large">
+        <span>{{ (project.title or project.name or 'P')[:1] }}</span>
+      </div>
+    {% endif %}
+    <div>
+      {% if project.status or project.version %}
+        <div class="eyebrow">
+          {% if project.status %}{{ project.status }}{% endif %}
+          {% if project.status and project.version %} · {% endif %}
+          {% if project.version %}v{{ project.version }}{% endif %}
+        </div>
+      {% endif %}
+      <h1>{{ project.title or project.name }}</h1>
+      <p>{{ project.tagline or project.description }}</p>
+    </div>
+  </div>
+  <div class="project-actions">
+    {% if project.links and project.links.demo and project.links.demo != '#' %}
+      <a class="button primary" href="{{ project.links.demo }}" target="_blank" rel="noreferrer">Open project ↗</a>
+    {% endif %}
+  </div>
+</section>
+<section class="detail-layout">
+  <article>
+    {% if project.demo_image %}
+      <div class="project-detail-preview">
+        <img src="{{ project.demo_image }}" alt="{{ project.title or project.name }} Preview" loading="lazy" onerror="this.style.display='none';">
+      </div>
+    {% endif %}
+    <div class="eyebrow">ABOUT</div>
+    <h2>Built to solve a real problem.</h2>
+    <p class="lead">{{ project.long_description or project.description }}</p>
+    {% if project.features %}
+      <div class="feature-list">
+        {% for feature in project.features %}
+          <div><span>✓</span>{{ feature }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+  <aside>
+    {% set techs = project.technologies or project.techStack %}
+    {% if techs %}
+      <div class="meta-box">
+        <span>TECHNOLOGY</span>
+        <div class="tech-list">
+          {% for tech in techs %}
+            <b>{{ tech }}</b>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    {% if project.tags %}
+      <div class="meta-box">
+        <span>TAGS</span>
+        <div class="tags">
+          {% for tag in project.tags %}
+            <span>{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    {% if project.updated %}
+      <div class="meta-box">
+        <span>LAST UPDATED</span>
+        <b>{{ project.updated }}</b>
+      </div>
+    {% endif %}
+  </aside>
+</section>
+{% if related %}
+<section class="section">
+  <div class="section-heading">
+    <div><span class="eyebrow">MORE TO EXPLORE</span><h2>Related projects</h2></div>
+  </div>
+  <div class="project-grid">
+    {% for project in related %}
+      {% include '_card.html' %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
