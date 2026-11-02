@@ -1,39 +1,96 @@
 {% extends 'base.html' %}
-{% block title %}{{ store_about.name }} — Projects{% endblock %}
+{% block title %}{{ store_about.name }} — Retro Arcade Showcase{% endblock %}
 {% block content %}
 <section class="hero">
   <div class="hero-copy">
-    <div class="eyebrow"><span class="pulse"></span> PERSONAL PROJECT STORE</div>
-    <h1>Projects, shipped<br><em>with intent.</em></h1>
-    <p>{{ store_about.description }}</p>
-    <div class="stats">
-      <div><b>{{ store_about.stats.projects }}</b><span>Projects</span></div>
-      <div><b>{{ store_about.stats.categories }}</b><span>Categories</span></div>
-      <div><b>{{ store_about.stats.technologies }}+</b><span>Technologies</span></div>
+    <div class="eyebrow"><span class="pulse"></span> [ INSERT COIN ] PERSONAL PROJECT STORE</div>
+    <h1 class="glitch-title" data-text="PROJECTS, SHIPPED">PROJECTS, SHIPPED<br><span class="neon-pink-text">WITH INTENT.</span></h1>
+    <p class="hero-desc">{{ store_about.description }}</p>
+    <div class="stats arcade-stats">
+      <div class="stat-cabinet">
+        <span class="stat-badge">GAMES</span>
+        <b>{{ store_about.stats.projects }}</b>
+        <span>Projects</span>
+      </div>
+      <div class="stat-cabinet">
+        <span class="stat-badge">GENRES</span>
+        <b>{{ store_about.stats.categories }}</b>
+        <span>Categories</span>
+      </div>
+      <div class="stat-cabinet">
+        <span class="stat-badge">ENGINES</span>
+        <b>{{ store_about.stats.technologies }}+</b>
+        <span>Technologies</span>
+      </div>
     </div>
   </div>
-  <div class="hero-orbit" aria-hidden="true"><div class="orbit-ring r1"></div><div class="orbit-ring r2"></div><div class="orbit-core">−</div></div>
+  <div class="hero-orbit" aria-hidden="true">
+    <div class="orbit-ring r1"></div>
+    <div class="orbit-ring r2"></div>
+    <div class="orbit-core">
+      <span class="core-symbol">−</span>
+      <span class="core-label">PRESS START</span>
+    </div>
+  </div>
 </section>
 
 <section class="toolbar">
+  <div class="toolbar-header">
+    <span class="terminal-prefix">SYSTEM://STAGE_SELECT &gt;&gt;</span>
+    <span class="blinking-cursor">_</span>
+  </div>
   <form class="search" method="get" action="{{ url_for('index') }}">
-    <span>⌕</span><input id="searchInput" name="q" value="{{ query }}" placeholder="Search projects, technologies, tags…" autocomplete="off"><kbd>/</kbd>
+    <span class="search-icon">🕹</span>
+    <input id="searchInput" name="q" value="{{ query }}" placeholder="Search cartridge, engine, tags (Press / to search)…" autocomplete="off">
+    <kbd class="arcade-kbd">ENTER</kbd>
     {% if active_category != 'all' %}<input type="hidden" name="category" value="{{ active_category }}">{% endif %}
   </form>
   <div class="filters">
-    <a class="filter {% if active_category == 'all' %}active{% endif %}" href="{{ url_for('index', q=query) }}">All</a>
-    {% for category in categories %}<a class="filter {% if active_category == category|lower %}active{% endif %}" href="{{ url_for('index', q=query, category=category|lower) }}">{{ category }}</a>{% endfor %}
+    <a class="filter {% if active_category == 'all' %}active{% endif %}" href="{{ url_for('index', q=query) }}">
+      <span class="filter-dot">●</span> ALL STAGES
+    </a>
+    {% for category in categories %}
+    <a class="filter {% if active_category == category|lower %}active{% endif %}" href="{{ url_for('index', q=query, category=category|lower) }}">
+      <span class="filter-dot">●</span> {{ category }}
+    </a>
+    {% endfor %}
   </div>
 </section>
 
 {% if featured %}
-<section class="section"><div class="section-heading"><div><span class="eyebrow">FEATURED</span><h2>Start here</h2></div><span class="count">{{ featured|length }} projects</span></div>
-<div class="project-grid featured-grid">
-{% for project in featured %}{% include '_card.html' %}{% endfor %}
-</div></section>
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow"><span class="arcade-star">★</span> FEATURED SHOWCASE</span>
+      <h2>Top Tier Cartridges</h2>
+    </div>
+    <span class="count">[ {{ featured|length }} STAGES ]</span>
+  </div>
+  <div class="project-grid featured-grid">
+    {% for project in featured %}{% include '_card.html' %}{% endfor %}
+  </div>
+</section>
 {% endif %}
 
-<section class="section"><div class="section-heading"><div><span class="eyebrow">CATALOG</span><h2>All projects</h2></div><span class="count">{{ projects|length }} results</span></div>
-{% if regular %}<div class="project-grid">{% for project in regular %}{% include '_card.html' %}{% endfor %}</div>{% elif not featured %}<div class="empty">No projects match your search.</div>{% endif %}
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow"><span class="arcade-star">👾</span> CATALOG ARCHIVE</span>
+      <h2>All Cartridges</h2>
+    </div>
+    <span class="count">[ {{ projects|length }} RESULTS ]</span>
+  </div>
+  {% if regular %}
+  <div class="project-grid">
+    {% for project in regular %}{% include '_card.html' %}{% endfor %}
+  </div>
+  {% elif not featured %}
+  <div class="empty">
+    <div class="empty-pixel-icon">👾</div>
+    <h3>GAME OVER // NO MATCH</h3>
+    <p>No projects match your search criteria. Insert another coin or clear search.</p>
+    <a class="button primary" href="{{ url_for('index') }}">RESET RADAR</a>
+  </div>
+  {% endif %}
 </section>
 {% endblock %}

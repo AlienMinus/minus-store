@@ -1,7 +1,10 @@
-<article class="project-card">
+<article class="project-card arcade-card accent-{{ project.accent or 'cyan' }}">
     <a href="{{ url_for('project_detail', slug=project.slug or project.id) }}" class="card-link">
 
-        <div class="card-image">
+        <!-- Arcade Screen Bezel -->
+        <div class="card-image arcade-screen">
+            <div class="screen-glare"></div>
+            <div class="screen-status-badge">1P READY</div>
             {% set card_img = project.demo_image %}
             {% if card_img %}
                 <img
@@ -24,34 +27,36 @@
 
             <div class="card-top">
                 {% set techs = project.techStack or project.technologies %}
-                <div class="project-type">
+                <div class="project-type arcade-pill">
                     {% if techs %}
                         {{ techs[0] }}
                     {% else %}
-                        Project
+                        CARTRIDGE
                     {% endif %}
                 </div>
 
                 {% if project.status %}
-                    <span class="status">{{ project.status }}</span>
+                    <span class="status arcade-status">{{ project.status }}</span>
+                {% else %}
+                    <span class="status arcade-status">COIN OP</span>
                 {% endif %}
             </div>
 
-            <h3>{{ project.title or project.name }}</h3>
+            <h3 class="card-title">{{ project.title or project.name }}</h3>
 
-            <p>{{ project.tagline or project.description }}</p>
+            <p class="card-desc">{{ project.tagline or project.description }}</p>
 
             {% if techs %}
-                <div class="tech-stack">
+                <div class="tech-stack arcade-chips">
                     {% for tech in techs[:4] %}
-                        <span>{{ tech }}</span>
+                        <span class="tech-chip">&lt;{{ tech }}&gt;</span>
                     {% endfor %}
                 </div>
             {% endif %}
 
             <div class="card-footer">
-                <span class="view-project">
-                    View project →
+                <span class="view-project arcade-btn-prompt">
+                    PRESS START <span class="arcade-arrow">►</span>
                 </span>
             </div>
 

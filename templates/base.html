@@ -3,37 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#08090d">
+  <meta name="theme-color" content="#070714">
   <meta name="description" content="{{ store_about.description }}">
   <title>{% block title %}{{ store_about.name }}{% endblock %}</title>
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='icons/favicon.png') }}">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/favicon.png') }}">
+  <!-- Retro Arcade Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-  <div class="bg-grid"></div>
+<body class="arcade-theme">
+  <!-- CRT Scanline & Screen Glare Effect Overlay -->
+  <div class="crt-scanlines" aria-hidden="true"></div>
+  <div class="arcade-stars" aria-hidden="true"></div>
+
+  <!-- Arcade Top Marquee / HUD -->
   <header class="topbar">
-    <a class="brand" href="{{ url_for('index') }}">
-      <span class="brand-mark">−</span>
-      <span>{{ store_about.name }}</span>
-    </a>
+    <div class="topbar-marquee">
+      <a class="brand" href="{{ url_for('index') }}">
+        <span class="brand-mark">−</span>
+        <span class="brand-text">{{ store_about.name }}</span>
+        <span class="brand-tag">ARCADE</span>
+      </a>
+
+      <!-- Retro Arcade HUD Score Display -->
+      <div class="arcade-hud" aria-hidden="true">
+        <div class="hud-item"><span class="hud-label">1UP</span><span class="hud-val pulse-text">03900</span></div>
+        <div class="hud-item"><span class="hud-label">HIGH SCORE</span><span class="hud-val">999990</span></div>
+        <div class="hud-item"><span class="hud-label">CREDIT</span><span class="hud-val blink">FREE PLAY</span></div>
+      </div>
+    </div>
+
     <nav>
-      <a href="{{ url_for('index') }}">Explore</a>
-      <a href="#about">About</a>
-      <a class="github-link" href="{{ store_links.github }}" target="_blank" rel="noreferrer">GitHub ↗</a>
+      <a href="{{ url_for('index') }}" class="nav-item"><span>▶</span> EXPLORE</a>
+      <a href="#about" class="nav-item"><span>★</span> ABOUT</a>
+      <a class="github-link nav-item" href="{{ store_links.github }}" target="_blank" rel="noreferrer"><span>👾</span> GITHUB ↗</a>
+      <button id="sfxToggle" class="sfx-btn" title="Toggle 8-bit sound effects" type="button" aria-label="Toggle retro SFX">
+        <span class="sfx-icon">🔊</span> SFX: <span id="sfxStatus">ON</span>
+      </button>
     </nav>
   </header>
+
   <main>{% block content %}{% endblock %}</main>
+
   <footer id="about" class="footer">
-    <div><strong>{{ store_about.name }}</strong><span>{{ store_about.tagline }}</span></div>
-    <div class="footer-links">
-      <a href="{{ store_links.github }}" target="_blank" rel="noreferrer">GitHub</a>
-      <a href="{{ store_links.portfolio }}" target="_blank" rel="noreferrer">Portfolio</a>
-      <a href="{{ store_links.email }}">Contact</a>
-      <a href="{{ store_links.linkedin }}" target="_blank" rel="noreferrer">LinkedIn</a>
-      <a href="{{ store_links.instagram }}" target="_blank" rel="noreferrer">Instagram</a>
+    <div class="footer-cabinet">
+      <strong>[ MINUS ARCADE CABINET ]</strong>
+      <span>{{ store_about.tagline }}</span>
+      <div class="arcade-insert-coin blink">⚡ INSERT COIN TO CONTINUE ⚡</div>
     </div>
-    <small>Built with Flask · Jinja · Waitress</small>
+    <div class="footer-links">
+      <a href="{{ store_links.github }}" target="_blank" rel="noreferrer">► GitHub</a>
+      <a href="{{ store_links.portfolio }}" target="_blank" rel="noreferrer">► Portfolio</a>
+      <a href="{{ store_links.email }}">► Contact</a>
+      {% if store_links.linkedin %}<a href="{{ store_links.linkedin }}" target="_blank" rel="noreferrer">► LinkedIn</a>{% endif %}
+      {% if store_links.instagram %}<a href="{{ store_links.instagram }}" target="_blank" rel="noreferrer">► Instagram</a>{% endif %}
+    </div>
+    <small>© MINUS ARCADE SYSTEM // BUILT WITH FLASK · JINJA · WAITRESS // LEVEL 99 READY</small>
   </footer>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>

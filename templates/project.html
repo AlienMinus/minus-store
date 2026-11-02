@@ -1,96 +1,124 @@
 {% extends 'base.html' %}
-{% block title %}{{ project.title or project.name }} — {{ store_about.name }}{% endblock %}
+{% block title %}{{ project.title or project.name }} — {{ store_about.name }} Arcade{% endblock %}
 {% block content %}
-<section class="project-hero accent-{{ project.accent or 'violet' }}">
-  <a class="back" href="{{ url_for('index') }}">← Back to store</a>
+<section class="project-hero arcade-cabinet-hero accent-{{ project.accent or 'cyan' }}">
+  <a class="back arcade-back" href="{{ url_for('index') }}">
+    <span class="back-arrow">◄◄</span> RETURN TO ARCADE LOBBY
+  </a>
+
   <div class="project-heading">
     {% set icon_src = project.icon_image or (project.icon if project.icon and (project.icon.startswith('http') or '/' in project.icon)) %}
     {% if icon_src %}
-      <div class="project-image-preview">
+      <div class="project-image-preview arcade-icon-bezel">
         <img src="{{ icon_src }}" alt="{{ project.title or project.name }}" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-        <div class="project-icon large" style="display: none;">
+        <div class="project-icon large arcade-icon-box" style="display: none;">
           <span>{{ (project.title or project.name or 'P')[:1] }}</span>
         </div>
       </div>
     {% elif project.icon and project.icon in ['bot', 'calendar', 'cpu', 'spark', 'store', 'terminal'] %}
-      <div class="project-icon large">
+      <div class="project-icon large arcade-icon-box">
         {% include 'icons/' + project.icon + '.svg' %}
       </div>
     {% else %}
-      <div class="project-icon large">
+      <div class="project-icon large arcade-icon-box">
         <span>{{ (project.title or project.name or 'P')[:1] }}</span>
       </div>
     {% endif %}
-    <div>
-      {% if project.status or project.version %}
-        <div class="eyebrow">
-          {% if project.status %}{{ project.status }}{% endif %}
-          {% if project.status and project.version %} · {% endif %}
-          {% if project.version %}v{{ project.version }}{% endif %}
-        </div>
-      {% endif %}
-      <h1>{{ project.title or project.name }}</h1>
-      <p>{{ project.tagline or project.description }}</p>
+
+    <div class="heading-meta">
+      <div class="arcade-eyebrow-row">
+        <span class="arcade-player-tag">1P CARTRIDGE</span>
+        {% if project.status or project.version %}
+          <div class="eyebrow arcade-version-tag">
+            {% if project.status %}<span class="status-badge">{{ project.status }}</span>{% endif %}
+            {% if project.status and project.version %} · {% endif %}
+            {% if project.version %}<span class="ver-badge">VER {{ project.version }}</span>{% endif %}
+          </div>
+        {% endif %}
+      </div>
+      <h1 class="arcade-title">{{ project.title or project.name }}</h1>
+      <p class="arcade-lead-sub">{{ project.tagline or project.description }}</p>
     </div>
   </div>
+
   <div class="project-actions">
     {% if project.links and project.links.demo and project.links.demo != '#' %}
-      <a class="button primary" href="{{ project.links.demo }}" target="_blank" rel="noreferrer">Open project ↗</a>
+      <a class="button primary arcade-launch-btn" href="{{ project.links.demo }}" target="_blank" rel="noreferrer">
+        <span class="btn-coin">🪙</span> INSERT COIN TO LAUNCH ↗
+      </a>
     {% endif %}
   </div>
 </section>
-<section class="detail-layout">
-  <article>
+
+<section class="detail-layout arcade-detail-layout">
+  <article class="arcade-briefing">
     {% if project.demo_image %}
-      <div class="project-detail-preview">
+      <div class="project-detail-preview arcade-screen-container">
+        <div class="screen-glare"></div>
+        <div class="arcade-screen-header">
+          <span>SCREENSHOT ARCHIVE // CRT_MODE: 60Hz</span>
+          <span class="live-indicator blink">● LIVE DEMO</span>
+        </div>
         <img src="{{ project.demo_image }}" alt="{{ project.title or project.name }} Preview" loading="lazy" onerror="this.style.display='none';">
       </div>
     {% endif %}
-    <div class="eyebrow">ABOUT</div>
-    <h2>Built to solve a real problem.</h2>
-    <p class="lead">{{ project.long_description or project.description }}</p>
+
+    <div class="eyebrow arcade-section-tag">
+      <span class="arcade-pixel-icon">👾</span> MISSION BRIEFING // ABOUT
+    </div>
+    <h2 class="arcade-subheading">Built to solve a real problem.</h2>
+    <p class="lead arcade-desc">{{ project.long_description or project.description }}</p>
+
     {% if project.features %}
-      <div class="feature-list">
+      <div class="arcade-features-title">[ KEY POWER-UPS & CAPABILITIES ]</div>
+      <div class="feature-list arcade-features">
         {% for feature in project.features %}
-          <div><span>✓</span>{{ feature }}</div>
+          <div class="feature-item"><span class="feature-bullet">►</span> {{ feature }}</div>
         {% endfor %}
       </div>
     {% endif %}
   </article>
-  <aside>
+
+  <aside class="arcade-sidebar">
     {% set techs = project.technologies or project.techStack %}
     {% if techs %}
-      <div class="meta-box">
-        <span>TECHNOLOGY</span>
-        <div class="tech-list">
+      <div class="meta-box arcade-meta-box">
+        <span class="meta-title">[ CARTRIDGE ENGINES ]</span>
+        <div class="tech-list arcade-tech-grid">
           {% for tech in techs %}
-            <b>{{ tech }}</b>
+            <b class="arcade-tech-badge">&lt;{{ tech }}&gt;</b>
           {% endfor %}
         </div>
       </div>
     {% endif %}
+
     {% if project.tags %}
-      <div class="meta-box">
-        <span>TAGS</span>
-        <div class="tags">
+      <div class="meta-box arcade-meta-box">
+        <span class="meta-title">[ INVENTORY TAGS ]</span>
+        <div class="tags arcade-tags-grid">
           {% for tag in project.tags %}
-            <span>{{ tag }}</span>
+            <span class="arcade-tag-pill">#{{ tag }}</span>
           {% endfor %}
         </div>
       </div>
     {% endif %}
+
     {% if project.updated %}
-      <div class="meta-box">
-        <span>LAST UPDATED</span>
-        <b>{{ project.updated }}</b>
+      <div class="meta-box arcade-meta-box">
+        <span class="meta-title">[ SAVE FILE / CHECKPOINT ]</span>
+        <b class="arcade-checkpoint-date">{{ project.updated }}</b>
       </div>
     {% endif %}
   </aside>
 </section>
+
 {% if related %}
-<section class="section">
+<section class="section arcade-related-section">
   <div class="section-heading">
-    <div><span class="eyebrow">MORE TO EXPLORE</span><h2>Related projects</h2></div>
+    <div>
+      <span class="eyebrow arcade-section-tag"><span class="arcade-star">★</span> MORE CARTRIDGES</span>
+      <h2>Related Projects</h2>
+    </div>
   </div>
   <div class="project-grid">
     {% for project in related %}
