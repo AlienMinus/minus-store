@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block title %}Retro Arcade Room — Play 8-Bit Pixel Games — {{ store_about.name }}{% endblock %}
+{% block content %}
+<div class="arcade-page-container">
+  <!-- Top Navigation & Room Status Bar -->
+  <header class="arcade-room-header">
+    <a class="back arcade-back-btn" href="{{ url_for('index') }}">
+      <span class="back-arrow">◄◄</span> BACK TO PROJECT STORE
+    </a>
+    <div class="arcade-status-badge blink">
+      <span class="led-dot">●</span> COIN-OP FREE PLAY ACTIVE
+    </div>
+  </header>
+
+  <!-- Arcade Room Hero Banner -->
+  <section class="arcade-room-hero">
+    <div class="eyebrow"><span class="pulse"></span> [ ARCADE ZONE ] 8-BIT RETRO PIXEL SHOWCASE</div>
+    <h1 class="pixel-title">RETRO ARCADE<br><span class="highlight-text">GAME GALLERY</span></h1>
+    <p class="arcade-room-sub">Select any 8-bit game cartridge below to mount its dedicated retro arcade cabinet in an interactive pop-up modal. Complete with authentic pixel art, sound synthesis, and high scores.</p>
+  </section>
+
+  <!-- Arcade Game Cards Grid -->
+  <section class="arcade-shelf-section">
+    <div class="arcade-shelf-label">
+      <span>🕹 SELECT CARTRIDGE TO LAUNCH:</span>
+      <span class="shelf-count">[ {{ games|length }} CARTRIDGES AVAILABLE ]</span>
+    </div>
+
+    <div class="arcade-cards-grid">
+      {% for game in games %}
+      <div class="arcade-card" data-game-id="{{ game.id }}">
+        <div class="arcade-card-topbar">
+          <span class="cartridge-badge">{{ game.cartridge }}</span>
+          <span class="genre-badge" style="--genre-color: {{ game.color }}">{{ game.genre }}</span>
+        </div>
+
+        <div class="arcade-card-media">
+          <span class="arcade-card-icon">{{ game.icon }}</span>
+          <div class="arcade-card-screen-preview">
+            <span class="preview-text">8-BIT SYSTEM</span>
+            <span class="preview-fps">60 FPS</span>
+          </div>
+        </div>
+
+        <div class="arcade-card-info">
+          <h2 class="arcade-card-title">{{ game.icon }} {{ game.title }}</h2>
+          <p class="arcade-card-tagline">{{ game.tagline }}</p>
+
+          <div class="tech-stack arcade-chips">
+            {% for tag in game.tags %}
+            <span class="tech-chip">&lt;{{ tag }}&gt;</span>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="arcade-card-footer">
+          <div class="arcade-card-hi">
+            <span class="hi-label">RECORD</span>
+            <span class="hi-score-val" id="cardHi_{{ game.id }}">{{ game.hi_default }}</span>
+          </div>
+          <button type="button" class="arcade-play-trigger-btn" data-game="{{ game.id }}">
+            <span>🪙</span> PLAY GAME
+          </button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+<!-- ==========================================================================
+     RETRO ARCADE CABINET MODAL
+     ========================================================================== -->
+<div class="arcade-modal-backdrop" id="arcadeModalBackdrop" aria-hidden="true">
+  <div class="arcade-modal-cabinet" role="dialog" aria-modal="true" aria-labelledby="modalGameTitle">
+    <!-- Cabinet Top Marquee -->
+    <div class="modal-cabinet-header">
+      <div class="marquee-title-wrap">
+        <span class="cabinet-status-dot pulse">●</span>
+        <h2 class="modal-game-title" id="modalGameTitle">RETRO GAME</h2>
+      </div>
+
+      <div class="modal-score-board">
+        <div class="score-pill"><span class="lbl">HI:</span> <span class="val" id="modalHiScore">00000</span></div>
+        <div class="score-pill current"><span class="lbl">SCORE:</span> <span class="val" id="modalScore">00000</span></div>
+      </div>
+
+      <button type="button" class="modal-close-btn" id="modalCloseBtn" aria-label="Close Arcade Cabinet">
+        ✕ ESC
+      </button>
+    </div>
+
+    <!-- Cabinet Canvas Display -->
+    <div class="modal-screen-wrap" id="modalScreenWrap">
+      <canvas id="modalCanvas" width="640" height="340"></canvas>
+      <div class="modal-crt-lines"></div>
+
+      <!-- Start / GameOver Overlay -->
+      <div class="modal-game-overlay" id="modalOverlay">
+        <div class="overlay-badge">● INSERT COIN ●</div>
+        <div class="overlay-title" id="modalOverlayTitle">PRESS START TO PLAY</div>
+        <div class="overlay-sub" id="modalOverlaySub">USE ARROW KEYS OR DPAD TO MOVE</div>
+        <button type="button" class="modal-start-game-btn" id="modalStartBtn">
+          <span>🪙</span> START GAME
+        </button>
+      </div>
+    </div>
+
+    <!-- Cabinet Controls Deck -->
+    <div class="modal-controls-deck">
+      <!-- Retro D-Pad -->
+      <div class="dpad-box">
+        <button type="button" class="modal-key-btn dpad-up" data-key="ArrowUp" aria-label="Move Up">▲</button>
+        <div class="dpad-row">
+          <button type="button" class="modal-key-btn dpad-left" data-key="ArrowLeft" aria-label="Move Left">◀</button>
+          <div class="dpad-center">●</div>
+          <button type="button" class="modal-key-btn dpad-right" data-key="ArrowRight" aria-label="Move Right">▶</button>
+        </div>
+        <button type="button" class="modal-key-btn dpad-down" data-key="ArrowDown" aria-label="Move Down">▼</button>
+      </div>
+
+      <!-- Controls Info & Shortcuts -->
+      <div class="deck-hints">
+        <span class="hint-text">⌨ ARROWS / WASD : MOVE &amp; STEER</span>
+        <span class="hint-text">⌨ SPACE : ACTION / FIRE / JUMP / ROTATE</span>
+      </div>
+
+      <!-- Action & Reset Buttons -->
+      <div class="deck-actions">
+        <button type="button" class="deck-btn action-fire" data-key="Space">
+          <span>FIRE / ACTION</span> [SPACE]
+        </button>
+        <button type="button" class="deck-btn action-restart" id="modalResetBtn">
+          <span>RESTART</span> ↺
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/games/snake.js') }}"></script>
+<script src="{{ url_for('static', filename='js/games/breaker.js') }}"></script>
+<script src="{{ url_for('static', filename='js/games/defender.js') }}"></script>
+<script src="{{ url_for('static', filename='js/games/dino.js') }}"></script>
+<script src="{{ url_for('static', filename='js/games/pong.js') }}"></script>
+<script src="{{ url_for('static', filename='js/games/racer.js') }}"></script>
+<script src="{{ url_for('static', filename='js/games/tetris.js') }}"></script>
+{% endblock %}

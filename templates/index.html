@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}{{ store_about.name }} — Retro Arcade Showcase{% endblock %}
+{% block title %}{{ store_about.name }} — Pixelatte Arcade Showcase{% endblock %}
 {% block content %}
 <section class="hero">
   <div class="hero-copy">
     <div class="eyebrow"><span class="pulse"></span> [ INSERT COIN ] PERSONAL PROJECT STORE</div>
-    <h1 class="glitch-title" data-text="PROJECTS, SHIPPED">PROJECTS, SHIPPED<br><span class="neon-pink-text">WITH INTENT.</span></h1>
+    <h1 class="pixel-title">PROJECTS, SHIPPED<br><span class="highlight-text">WITH INTENT.</span></h1>
     <p class="hero-desc">{{ store_about.description }}</p>
     <div class="stats arcade-stats">
       <div class="stat-cabinet">
@@ -24,12 +24,25 @@
       </div>
     </div>
   </div>
-  <div class="hero-orbit" aria-hidden="true">
-    <div class="orbit-ring r1"></div>
-    <div class="orbit-ring r2"></div>
-    <div class="orbit-core">
-      <span class="core-symbol">−</span>
-      <span class="core-label">PRESS START</span>
+  <!-- Dino Runner Arcade Mini-Game Cabinet -->
+  <div class="hero-dino-cabinet">
+    <div class="dino-cabinet-topbar">
+      <span class="dino-cabinet-title">🦖 DINO_RUNNER.EXE</span>
+      <div class="dino-score-display">
+        <span class="dino-hi">HI <span id="dinoHiScore">00500</span></span>
+        <span class="dino-current" id="dinoScore">00000</span>
+      </div>
+    </div>
+    <div class="dino-canvas-container" id="dinoContainer">
+      <canvas id="dinoCanvas" width="560" height="240"></canvas>
+      <div class="dino-overlay" id="dinoOverlay">
+        <div class="dino-msg-title" id="dinoMsgTitle">PRESS SPACE TO PLAY</div>
+        <div class="dino-msg-sub" id="dinoMsgSub">AVOID CACTI · SURVIVE · HIGH SCORE</div>
+      </div>
+    </div>
+    <div class="dino-cabinet-footer">
+      <span class="dino-controls-hint">⌨ SPACE / ↑ / CLICK TO JUMP</span>
+      <button type="button" class="dino-jump-btn" id="dinoJumpBtn">JUMP ▲</button>
     </div>
   </div>
 </section>

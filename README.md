@@ -42,4 +42,4 @@ Edit these files without touching the Flask code:
 - `static/data/projects.json` — all project cards and project detail data
 - `static/data/links.json` — social/contact links
 
-Each project can define `id`, `slug`, `title` (or `name`), `tagline`, `description`, `long_description`, `icon_image` (icon on project's own page), `demo_image` (demo image on general card), `icon`, `accent`, `status`, `featured`, `version`, `updated`, `techStack` (or `technologies`), `tags`, `links`, and `features`.
+Each project can define `id`, `slug`, `title` (or `name`), `tagline`, `description`, `long_description`, `icon_image` (icon on project's own page), `demo_image` (demo image on general card), `icon`, `accent`, `status`, `featured`, `version`, `updated`, `techStack` (or `technologies`), `tags`, `links` (`github`, `demo`, `gitdiagram`), and `features`. Each project page automatically embeds an interactive codebase architecture map powered by GitDiagram.

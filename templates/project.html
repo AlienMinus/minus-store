@@ -47,6 +47,11 @@
         <span class="btn-coin">🪙</span> INSERT COIN TO LAUNCH ↗
       </a>
     {% endif %}
+    {% if project.links and project.links.gitdiagram %}
+      <a class="button arcade-diagram-btn" href="{{ project.links.gitdiagram }}" target="_blank" rel="noreferrer">
+        <span class="btn-icon">⚡</span> GIT DIAGRAM ↗
+      </a>
+    {% endif %}
   </div>
 </section>
 
@@ -80,6 +85,14 @@
   </article>
 
   <aside class="arcade-sidebar">
+    {% if project.links and project.links.gitdiagram %}
+      <div class="meta-box arcade-meta-box">
+        <span class="meta-title">[ ARCHITECTURE DIAGRAM ]</span>
+        <a class="arcade-quick-link" href="{{ project.links.gitdiagram }}" target="_blank" rel="noreferrer">
+          <span class="quick-icon">⚡</span> Open in GitDiagram ↗
+        </a>
+      </div>
+    {% endif %}
     {% set techs = project.technologies or project.techStack %}
     {% if techs %}
       <div class="meta-box arcade-meta-box">
