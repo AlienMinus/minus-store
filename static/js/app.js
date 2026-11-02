@@ -567,31 +567,40 @@
     }
 
     function openCabinet(gameKey) {
+      if (!backdrop) return;
+
+      // 1. Immediately open modal
+      backdrop.classList.add('active');
+      backdrop.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
       if (animId) cancelAnimationFrame(animId);
-      if (currentGame && currentGame.stop) currentGame.stop();
+      if (currentGame && currentGame.stop) {
+        try { currentGame.stop(); } catch(e) {}
+      }
 
       currentGameKey = gameKey;
       currentGame = getGameInstance(gameKey);
-      if (!currentGame) return;
 
       initAudio();
       playCoinSound();
 
-      if (modalTitle) modalTitle.textContent = currentGame.name;
+      if (modalTitle) modalTitle.textContent = currentGame ? currentGame.name : (gameKey.toUpperCase() + ' // 8-BIT');
       if (overlayTitle) overlayTitle.textContent = 'PRESS START TO PLAY';
-      if (overlaySub) overlaySub.textContent = `CARTRIDGE: ${gameKey.toUpperCase()} LOADED`;
+      if (overlaySub) overlaySub.textContent = `CARTRIDGE: ${gameKey.toUpperCase()} READY`;
       if (overlay) overlay.classList.remove('hidden');
 
-      // Initial frame render
-      const info = currentGame.tick(performance.now());
-      if (info) {
-        if (modalScore) modalScore.textContent = String(Math.floor(info.score)).padStart(5, '0');
-        if (modalHi) modalHi.textContent = String(Math.floor(info.hiScore)).padStart(5, '0');
+      if (currentGame) {
+        try {
+          const info = currentGame.tick(performance.now());
+          if (info) {
+            if (modalScore) modalScore.textContent = String(Math.floor(info.score)).padStart(5, '0');
+            if (modalHi) modalHi.textContent = String(Math.floor(info.hiScore)).padStart(5, '0');
+          }
+        } catch (err) {
+          console.error('Error rendering initial game frame:', err);
+        }
       }
-
-      backdrop.classList.add('active');
-      backdrop.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
     }
 
     function closeCabinet() {
@@ -645,12 +654,20 @@
       animId = requestAnimationFrame(cabinetLoop);
     }
 
-    // Attach click to play buttons on cards
+    // Attach click to play buttons on cards (both direct & delegated for reliability)
     playBtns.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         openCabinet(btn.dataset.game);
       });
+    });
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.arcade-play-trigger-btn');
+      if (btn && btn.dataset.game) {
+        e.preventDefault();
+        openCabinet(btn.dataset.game);
+      }
     });
 
     // Close button & backdrop click
