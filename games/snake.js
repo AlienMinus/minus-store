@@ -138,6 +138,8 @@ window.SnakeGame = (function () {
       });
     }
 
+    reset();
+
     return {
       name: '🐍 RETRO SNAKE // 8-BIT',
       start() {

@@ -171,6 +171,8 @@ window.DefenderGame = (function () {
       ctx.fillRect(px, py + 10, CANNON_W, 8);
     }
 
+    reset();
+
     return {
       name: '👾 SPACE DEFENDER // 8-BIT',
       start() {

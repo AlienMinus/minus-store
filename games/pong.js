@@ -204,6 +204,8 @@ window.PongGame = (function () {
       ctx.fillRect(Math.round(ballX) + 2, Math.round(ballY) + 2, 3, 3);
     }
 
+    reset();
+
     return {
       name: '🏓 PIXEL PONG // 1P VS CPU',
       start() {

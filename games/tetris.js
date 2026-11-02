@@ -168,10 +168,13 @@ window.TetrisGame = (function () {
       }
 
       // Draw Placed Blocks
-      for (let r = 0; r < ROWS; r++) {
-        for (let c = 0; c < COLS; c++) {
-          if (grid[r][c]) {
-            drawBlock(GRID_X + c * BLOCK, GRID_Y + r * BLOCK, grid[r][c]);
+      if (grid && grid.length === ROWS) {
+        for (let r = 0; r < ROWS; r++) {
+          if (!grid[r]) continue;
+          for (let c = 0; c < COLS; c++) {
+            if (grid[r][c]) {
+              drawBlock(GRID_X + c * BLOCK, GRID_Y + r * BLOCK, grid[r][c]);
+            }
           }
         }
       }
@@ -241,6 +244,8 @@ window.TetrisGame = (function () {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
       ctx.fillRect(x + 2, y + 2, BLOCK - 4, 3);
     }
+
+    reset();
 
     return {
       name: '🧩 BLOCK STACKER // TETRIS',

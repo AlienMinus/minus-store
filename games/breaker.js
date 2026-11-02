@@ -169,6 +169,8 @@ window.BreakerGame = (function () {
       ctx.fillRect(Math.round(ballX - BALL_R), Math.round(ballY - BALL_R), BALL_R * 2, BALL_R * 2);
     }
 
+    reset();
+
     return {
       name: '🧱 BRICK BREAKER // 8-BIT',
       start() {

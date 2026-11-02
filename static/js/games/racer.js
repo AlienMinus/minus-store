@@ -273,6 +273,8 @@ window.RacerGame = (function () {
       ctx.fillText(`${Math.floor(score)}M`, W - 80, 58);
     }
 
+    reset();
+
     return {
       name: '🏎 PIXEL RACER // HIGHWAY DODGE',
       start() {
